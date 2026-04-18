@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelMate Pro - Smart Tourism App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif
+        }
+
+        body {
+            background: #f0f2f5;
+            color: #333
+        }
+
+        .hidden {
+            display: none !important
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100
+        }
+
+        .navbar h1 {
+            cursor: pointer;
+            font-size: 1.5rem
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap
+        }
+
+        .nav-links button,
+        .nav-links a {
+            background: transparent;
+            color: #fff;
+            border: 2px solid #fff;
+            padding: 6px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: 0.3s
+        }
+
+        .nav-links button:hover {
+            background: #fff;
+            color: #764ba2
+        }
+
+        .btn-logout {
+            background: #ff4757 !important;
+            border: none !important
+        }
+
+        /* Language Selector */
+        .lang-selector {
+            background: #fff;
+            color: #333;
+            padding: 6px 10px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer
+        }
+
+        /* Hero */
+        .hero {
+            height: 85vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=1600') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-align: center
+        }
+
+        .hero-content {
+            padding: 40px;
+            max-width: 800px
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5)
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 20px
+        }
+
+        .btn-primary {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 12px 35px;
+            background: #ff6b6b;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: 0.3s;
+            text-decoration: none
+        }
+
+        .btn-primary:hover {
+            background: #ee5253;
+            transform: scale(1.05)
+        }
+
+        .btn-secondary {
+            background: #4ecdc4
+        }
+
+        .btn-secondary:hover {
+            background: #3ab5ad
+        }
+
+        /* Features */
+        .features {
+            padding: 60px 40px;
+            text-align: center;
+            background: #fff
+        }
+
+        .features h2 {
+            margin-bottom: 30px;
+            font-size: 2rem;
+            color: #764ba2
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto
+        }
+
+        .feature-card {
+            background: #f8f9ff;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+            transition: 0.3s;
+            font-size: 2.5rem
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(118, 75, 162, 0.2)
+        }
+
+        .feature-card h3 {
+            margin: 10px 0;
+            color: #764ba2;
+            font-size: 1.2rem
+        }
+
+        .feature-card p {
+            font-size: 0.9rem;
+            color: #666
+        }
+
+        /* Login */
+        .login-wrap {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px
+        }
+
+        .login-container {
+            background: #fff;
+            padding: 35px;
+            border-radius: 20px;
+            width: 450px;
+            max-width: 100%;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25)
+        }
+
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #764ba2
+        }
+
+        .login-container label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: 500;
+            font-size: 0.9rem
+        }
+
+        .login-container input,
+        .login-container select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 0.95rem
+        }
+
+        .login-container button {
+            width: 100%;
+            margin-top: 20px
+        }
+
+        /* Dashboard */
+        .dashboard-header {
+            padding: 50px 40px;
+            text-align: center;
+            color: #fff
+        }
+
+        .dashboard-header h1 {
+            font-size: 2.3rem
+        }
+
+        .dashboard-header p {
+            margin-top: 10px;
+            font-size: 1rem;
+            opacity: 0.95
+        }
+
+        .theme-male {
+            background: linear-gradient(135deg, #2193b0, #6dd5ed)
+        }
+
+        .theme-female {
+            background: linear-gradient(135deg, #ff6a88, #ff99ac)
+        }
+
+        .theme-other {
+            background: linear-gradient(135deg, #56ab2f, #a8e063)
+        }
+
+        /* Sections */
+        .section {
+            padding: 40px
+        }
+
+        .section h2 {
+            margin-bottom: 20px;
+            color: #444;
+            border-left: 5px solid #764ba2;
+            padding-left: 12px;
+            font-size: 1.5rem
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: 0.3s;
+            cursor: pointer
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15)
+        }
+
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover
+        }
+
+        .card-body {
+            padding: 15px
+        }
+
+        .card-body h3 {
+            color: #764ba2;
+            margin-bottom: 8px
+        }
+
+        .card-body p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 8px
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 8px
+        }
+
+        .tag {
+            background: #f0f2f5;
+            color: #555;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem
+        }
+
+        .tag-hot {
+            background: #ffe5e5;
+            color: #d63031
+        }
+
+        .tag-safe {
+            background: #e5ffe5;
+            color: #00b894
+        }
+
+        /* Info sections */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px
+        }
+
+        .info-box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+            border-left: 4px solid #764ba2
+        }
+
+        .info-box h4 {
+            color: #764ba2;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .info-box p {
+            font-size: 0.9rem;
+            color: #555
+        }
+
+        .info-box.warning {
+            border-left-color: #ff4757;
+            background: #fff5f5
+        }
+
+        .info-box.safe {
+            border-left-color: #00b894;
+            background: #f0fff4
+        }
+
+        /* Chatbot */
+        .chatbot-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(118, 75, 162, 0.4);
+            z-index: 999;
+            transition: 0.3s
+        }
+
+        .chatbot-btn:hover {
+            transform: scale(1.1)
+        }
+
+        .chatbot-box {
+            position: fixed;
+            bottom: 100px;
+            right: 25px;
+            width: 350px;
+            max-width: 90vw;
+            height: 500px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
+            z-index: 999;
+            overflow: hidden
+        }
+
+        .chatbot-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            background: #f8f9ff
+        }
+
+        .msg {
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            border-radius: 12px;
+            max-width: 85%;
+            font-size: 0.9rem
+        }
+
+        .msg-bot {
+            background: #fff;
+            color: #333;
+            border: 1px solid #e0e0e0
+        }
+
+        .msg-user {
+            background: #764ba2;
+            color: #fff;
+            margin-left: auto;
+            text-align: right
+        }
+
+        .chatbot-input {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #eee
+        }
+
+        .chatbot-input input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            outline: none
+        }
+
+        .chatbot-input button {
+            margin-left: 8px;
+            padding: 8px 15px;
+            background: #764ba2;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px
+        }
+
+        .modal {
+            background: #fff;
+            border-radius: 15px;
+            max-width: 700px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 25px;
+            position: relative
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: #ff4757;
+            color: #fff;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem
+        }
+
+        .modal h2 {
+            color: #764ba2;
+            margin-bottom: 10px
+        }
+
+        .modal img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin: 10px 0
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            padding: 20px 40px;
+            background: #fff;
+            overflow-x: auto
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background: #f0f2f5;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: 0.3s;
+            font-weight: 500
+        }
+
+        .tab.active {
+            background: #764ba2;
+            color: #fff
+        }
+
+        /* Feedback */
+        .feedback-form {
+            background: #fff;
+            padding: 25px;
+            border-radius: 15px;
+            max-width: 600px;
+            margin: 20px auto
+        }
+
+        .feedback-form textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-top: 8px
+        }
+
+        .rating {
+            display: flex;
+            gap: 5px;
+            margin: 10px 0;
+            font-size: 1.8rem;
+            cursor: pointer
+        }
+
+        .star {
+            color: #ddd;
+            transition: 0.2s
+        }
+
+        .star.active {
+            color: #ffc107
+        }
+
+        /* QR Code */
+        .qr-section {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 20px
+        }
+
+        .qr-section img {
+            width: 150px;
+            height: 150px;
+            margin: 10px 0
+        }
+
+        /* Profile/History */
+        .profile-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            max-width: 600px;
+            margin: 20px auto
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin: 0 auto 15px
+        }
+
+        .history-item {
+            background: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center
+        }
+
+        /* Route */
+        .route-box {
+            background: #fff;
+            padding: 15px;
+            border-radius: 12px;
+            margin: 10px 0;
+            border-left: 4px solid #4ecdc4;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: #222;
+            color: #fff;
+            margin-top: 40px
+        }
+
+        /* Offline banner */
+        .offline-banner {
+            background: #ff4757;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            font-weight: 600;
+            display: none
+        }
+
+        /* Responsive */
+        @media (max-width:768px) {
+            .navbar {
+                padding: 12px 15px;
+                flex-direction: column;
+                gap: 10px
+            }
+
+            .hero-content h1 {
+                font-size: 2rem
+            }
+
+            .section {
+                padding: 25px 15px
+            }
+
+            .dashboard-header {
+                padding: 30px 20px
+            }
+
+            .chatbot-box {
+                right: 10px;
+                bottom: 85px;
+                width: calc(100% - 20px)
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="offlineBanner" class="offline-banner">⚠️ You are offline. Showing cached data & offline map.</div>
+
+    <!-- =================== HOME PAGE =================== -->
+    <div id="homePage">
+        <nav class="navbar">
+            <h1 onclick="showHome()">🌏 TravelMate Pro</h1>
+            <div class="nav-links">
+                <select class="lang-selector" id="homeLang" onchange="changeLanguage(this.value)">
+                    <option value="en">🌐 English</option>
+                    <option value="hi">हिंदी</option>
+                    <option value="es">Español</option>
+                    <option value="fr">Français</option>
+                    <option value="de">Deutsch</option>
+                    <option value="ja">日本語</option>
+                    <option value="zh">中文</option>
+                    <option value="ar">العربية</option>
+                    <option value="ta">தமிழ்</option>
+                    <option value="bn">বাংলা</option>
+                </select>
+                <button onclick="showLogin()" data-lang="login">Login</button>
+            </div>
+        </nav>
+
+        <section class="hero">
+            <div class="hero-content">
+                <h1 data-lang="heroTitle">Discover Your Perfect Journey</h1>
+                <p data-lang="heroSub">Smart AI-powered tourism with local guides, translations, safety & more</p>
+                <button class="btn-primary" onclick="showLogin()" data-lang="getStarted">Get Started</button>
+            </div>
+        </section>
+
+        <section class="features">
+            <h2 data-lang="whyUs">Why TravelMate Pro?</h2>
+            <div class="feature-grid">
+                <div class="feature-card">🗣️<h3>Multi-language</h3>
+                    <p>Translate in 10+ languages</p>
+                </div>
+                <div class="feature-card">👨‍🏫<h3>Local Guides</h3>
+                    <p>Hire verified guides</p>
+                </div>
+                <div class="feature-card">🗺️<h3>Smart Routes</h3>
+                    <p>With QR codes & offline map</p>
+                </div>
+                <div class="feature-card">🍽️<h3>Food Filter</h3>
+                    <p>Veg/Non-veg/Jain/Halal</p>
+                </div>
+                <div class="feature-card">👥<h3>Travel Modes</h3>
+                    <p>Solo/Couple/Family/Friends</p>
+                </div>
+                <div class="feature-card">🤖<h3>AI Assistant</h3>
+                    <p>24/7 chatbot help</p>
+                </div>
+                <div class="feature-card">🎥<h3>360° View</h3>
+                    <p>Virtual tours</p>
+                </div>
+                <div class="feature-card">🛡️<h3>Safety First</h3>
+                    <p>Gender-based alerts</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- =================== LOGIN PAGE =================== -->
+    <div id="loginPage" class="hidden">
+        <div class="login-wrap">
+            <div class="login-container">
+                <h2>🌏 Welcome to TravelMate Pro</h2>
+                <form id="loginForm">
+                    <label>Full Name</label><input type="text" id="name" required placeholder="Your Name">
+                    <label>Email</label><input type="email" id="email" required placeholder="email@example.com">
+                    <label>Gender</label>
+                    <select id="gender" required>
+                        <option value="">Select</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <label>Nationality</label>
+                    <select id="nationality" required>
+                        <option value="domestic">Domestic (Indian)</option>
+                        <option value="international">International</option>
+                    </select>
+                    <label>Travel Mode</label>
+                    <select id="travelType" required>
+                        <option value="">Select</option>
+                        <option value="solo">🧳 Solo</option>
+                        <option value="couple">💑 Couple</option>
+                        <option value="family">👨‍👩‍👧 Family</option>
+                        <option value="friends">👫 Friends</option>
+                        <option value="college">🎓 College Trip</option>
+                    </select>
+                    <label>Food Preference</label>
+                    <select id="foodPref" required>
+                        <option value="all">All</option>
+                        <option value="veg">Vegetarian</option>
+                        <option value="nonveg">Non-Vegetarian</option>
+                        <option value="jain">Jain</option>
+                        <option value="halal">Halal</option>
+                    </select>
+                    <label>Preferred Language</label>
+                    <select id="prefLang" required>
+                        <option value="en">English</option>
+                        <option value="hi">Hindi</option>
+                        <option value="es">Spanish</option>
+                        <option value="fr">French</option>
+                        <option value="ja">Japanese</option>
+                        <option value="zh">Chinese</option>
+                        <option value="ar">Arabic</option>
+                        <option value="ta">Tamil</option>
+                    </select>
+                    <label>Destination City</label>
+                    <select id="city" required>
+                        <option value="">Select City</option>
+                        <option>Goa</option>
+                        <option>Manali</option>
+                        <option>Jaipur</option>
+                        <option>Mumbai</option>
+                        <option>Delhi</option>
+                        <option>Kerala</option>
+                        <option>Udaipur</option>
+                        <option>Shimla</option>
+                        <option>Agra</option>
+                        <option>Varanasi</option>
+                    </select>
+                    <button type="submit" class="btn-primary">Login & Explore 🚀</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- =================== DASHBOARD PAGE =================== -->
+    <div id="dashboardPage" class="hidden">
+        <nav class="navbar">
+            <h1 onclick="showDashboard()">🌏 TravelMate Pro</h1>
+            <div class="nav-links">
+                <select class="lang-selector" id="dashLang" onchange="translateDashboard(this.value)">
+                    <option value="en">🌐 English</option>
+                    <option value="hi">हिंदी</option>
+                    <option value="es">Español</option>
+                    <option value="fr">Français</option>
+                    <option value="ja">日本語</option>
+                    <option value="zh">中文</option>
+                    <option value="ar">العربية</option>
+                    <option value="ta">தமிழ்</option>
+                </select>
+                <button onclick="showProfile()">👤 Profile</button>
+                <button onclick="showHistory()">📜 History</button>
+                <button onclick="showFeedback()">💬 Feedback</button>
+                <button onclick="logout()" class="btn-logout">Logout</button>
+            </div>
+        </nav>
+
+        <section class="dashboard-header" id="dashHeader">
+            <h1 id="welcomeMsg"></h1>
+            <p id="subMsg"></p>
+        </section>
+
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('places', this)">🏞️ Places</button>
+            <button class="tab" onclick="switchTab('markets', this)">🛍️ Markets</button>
+            <button class="tab" onclick="switchTab('food', this)">🍴 Food</button>
+            <button class="tab" onclick="switchTab('hotels', this)">🏨 Stay</button>
+            <button class="tab" onclick="switchTab('essentials', this)">🏥 Essentials</button>
+            <button class="tab" onclick="switchTab('route', this)">🗺️ Route</button>
+            <button class="tab" onclick="switchTab('culture', this)">🎭 Culture</button>
+            <button class="tab" onclick="switchTab('guide', this)">👨‍🏫 Hire Guide</button>
+        </div>
+
+        <section class="section" id="placesTab">
+            <h2>🏞️ Top Places for You</h2>
+            <div class="cards" id="placesContainer"></div>
+        </section>
+
+        <section class="section hidden" id="marketsTab">
+            <h2>🛍️ Nearby Markets</h2>
+            <div class="cards" id="marketsContainer"></div>
+        </section>
+
+        <section class="section hidden" id="foodTab">
+            <h2>🍴 Food Spots (Filtered by Your Preference)</h2>
+            <div class="cards" id="foodContainer"></div>
+        </section>
+
+        <section class="section hidden" id="hotelsTab">
+            <h2>🏨 Hotels, Hostels & Airbnb</h2>
+            <div class="cards" id="hotelsContainer"></div>
+        </section>
+
+        <section class="section hidden" id="essentialsTab">
+            <h2>🏥 Essentials Near You</h2>
+            <p style="color:#666;margin-bottom:15px" id="essentialsNote"></p>
+            <div class="info-grid" id="essentialsContainer"></div>
+        </section>
+
+        <section class="section hidden" id="routeTab">
+            <h2>🗺️ Smart Route Planner</h2>
+            <div id="routeContainer"></div>
+            <div class="qr-section">
+                <h3>📱 Scan QR to Get Route on Mobile</h3>
+                <img id="qrImage" src="" alt="QR Code">
+                <p>Scan with any QR scanner to get the route link</p>
+            </div>
+        </section>
+
+        <section class="section hidden" id="cultureTab">
+            <h2>🎭 Explore Local Culture</h2>
+            <div class="info-grid" id="cultureContainer"></div>
+        </section>
+
+        <section class="section hidden" id="guideTab">
+            <h2>👨‍🏫 Hire a Local Tour Guide</h2>
+            <div class="cards" id="guideContainer"></div>
+        </section>
+
+        <footer>
+            <p>© 2025 TravelMate Pro | Explore India Smart & Safe 🚀</p>
+        </footer>
+    </div>
+
+    <!-- =================== PROFILE PAGE =================== -->
+    <div id="profilePage" class="hidden">
+        <nav class="navbar">
+            <h1 onclick="showDashboard()">🌏 TravelMate Pro</h1>
+            <div class="nav-links"><button onclick="showDashboard()">← Back</button></div>
+        </nav>
+        <div class="section">
+            <div class="profile-card">
+                <div class="profile-avatar" id="profileAvatar">U</div>
+                <h2 id="profileName" style="text-align:center;color:#764ba2"></h2>
+                <p id="profileEmail" style="text-align:center;color:#666;margin-bottom:20px"></p>
+                <div class="info-grid">
+                    <div class="info-box">
+                        <h4>👤 Gender</h4>
+                        <p id="profileGender"></p>
+                    </div>
+                    <div class="info-box">
+                        <h4>🌍 Nationality</h4>
+                        <p id="profileNation"></p>
+                    </div>
+                    <div class="info-box">
+                        <h4>🎒 Travel Mode</h4>
+                        <p id="profileMode"></p>
+                    </div>
+                    <div class="info-box">
+                        <h4>🍽️ Food Pref</h4>
+                        <p id="profileFood"></p>
+                    </div>
+                    <div class="info-box">
+                        <h4>📍 Current Trip</h4>
+                        <p id="profileCity"></p>
+                    </div>
+                    <div class="info-box">
+                        <h4>🗣️ Language</h4>
+                        <p id="profileLang"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =================== HISTORY PAGE =================== -->
+    <div id="historyPage" class="hidden">
+        <nav class="navbar">
+            <h1 onclick="showDashboard()">🌏 TravelMate Pro</h1>
+            <div class="nav-links"><button onclick="showDashboard()">← Back</button></div>
+        </nav>
+        <div class="section">
+            <h2>📜 Your Travel History</h2>
+            <div id="historyList" style="margin-top:20px"></div>
+        </div>
+    </div>
+
+    <!-- =================== FEEDBACK PAGE =================== -->
+    <div id="feedbackPage" class="hidden">
+        <nav class="navbar">
+            <h1 onclick="showDashboard()">🌏 TravelMate Pro</h1>
+            <div class="nav-links"><button onclick="showDashboard()">← Back</button></div>
+        </nav>
+        <div class="section">
+            <h2 style="text-align:center">💬 Share Your Experience</h2>
+            <div class="feedback-form">
+                <label>Rate Your Experience</label>
+                <div class="rating" id="ratingStars">
+                    <span class="star" onclick="setRating(1)">★</span>
+                    <span class="star" onclick="setRating(2)">★</span>
+                    <span class="star" onclick="setRating(3)">★</span>
+                    <span class="star" onclick="setRating(4)">★</span>
+                    <span class="star" onclick="setRating(5)">★</span>
+                </div>
+                <label>Your Feedback</label>
+                <textarea id="feedbackText" placeholder="Tell us about your experience..."></textarea>
+                <button class="btn-primary" onclick="submitFeedback()" style="margin-top:15px">Submit Feedback</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =================== CHATBOT =================== -->
+    <button class="chatbot-btn" onclick="toggleChatbot()" id="chatbotBtn">🤖</button>
+    <div class="chatbot-box hidden" id="chatbotBox">
+        <div class="chatbot-header">
+            <div><strong>🤖 AI Travel Assistant</strong></div>
+            <button onclick="toggleChatbot()"
+                style="background:transparent;border:none;color:#fff;font-size:1.3rem;cursor:pointer">×</button>
+        </div>
+        <div class="chatbot-messages" id="chatMessages">
+            <div class="msg msg-bot">Hi! I'm your AI travel assistant. Ask me anything about your destination! 🌍</div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chatInput" placeholder="Ask me anything..."
+                onkeypress="if(event.key==='Enter')sendMessage()">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <!-- =================== MODAL =================== -->
+    <div class="modal-overlay hidden" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+        <div class="modal" id="modalContent"></div>
+    </div>
+
+    <script>
+        // =================== DATA ===================
+        const translations = {
+            en: { login: "Login", heroTitle: "Discover Your Perfect Journey", heroSub: "Smart AI-powered tourism with local guides, translations, safety & more", getStarted: "Get Started", whyUs: "Why TravelMate Pro?" },
+            hi: { login: "लॉगिन", heroTitle: "अपनी आदर्श यात्रा खोजें", heroSub: "स्मार्ट AI-संचालित पर्यटन, स्थानीय गाइड, अनुवाद, सुरक्षा और बहुत कुछ", getStarted: "शुरू करें", whyUs: "ट्रैवलमेट प्रो क्यों?" },
+            es: { login: "Iniciar sesión", heroTitle: "Descubre tu viaje perfecto", heroSub: "Turismo inteligente con guías locales y traducciones", getStarted: "Comenzar", whyUs: "¿Por qué TravelMate Pro?" },
+            fr: { login: "Connexion", heroTitle: "Découvrez votre voyage parfait", heroSub: "Tourisme intelligent avec guides locaux", getStarted: "Commencer", whyUs: "Pourquoi TravelMate Pro?" },
+            de: { login: "Anmelden", heroTitle: "Entdecken Sie Ihre perfekte Reise", heroSub: "Intelligenter Tourismus mit lokalen Führern", getStarted: "Loslegen", whyUs: "Warum TravelMate Pro?" },
+            ja: { login: "ログイン", heroTitle: "完璧な旅を発見", heroSub: "ローカルガイド付きスマート観光", getStarted: "始める", whyUs: "なぜTravelMate Pro?" },
+            zh: { login: "登录", heroTitle: "发现您的完美旅程", heroSub: "智能AI驱动的旅游", getStarted: "开始", whyUs: "为什么选择TravelMate Pro?" },
+            ar: { login: "تسجيل الدخول", heroTitle: "اكتشف رحلتك المثالية", heroSub: "سياحة ذكية مدعومة بالذكاء الاصطناعي", getStarted: "ابدأ", whyUs: "لماذا TravelMate Pro؟" },
+            ta: { login: "உள்நுழை", heroTitle: "உங்கள் சரியான பயணத்தைக் கண்டறியுங்கள்", heroSub: "ஸ்மார்ட் AI சுற்றுலா", getStarted: "தொடங்கு", whyUs: "ஏன் TravelMate Pro?" },
+            bn: { login: "লগইন", heroTitle: "আপনার নিখুঁত যাত্রা আবিষ্কার করুন", heroSub: "স্মার্ট এআই পর্যটন", getStarted: "শুরু করুন", whyUs: "কেন TravelMate Pro?" }
+        };
+
+        const cityData = {
+            Goa: {
+                local: "Konkani", nativeName: "गोवा / Goencho",
+                about: { en: "Goa is India's smallest state, famous for beaches, Portuguese heritage, seafood, and vibrant nightlife.", hi: "गोवा भारत का सबसे छोटा राज्य है, जो समुद्र तटों, पुर्तगाली विरासत और जीवंत नाइटलाइफ के लिए प्रसिद्ध है।", local: "Goem amcho, sundor ani shantichem rajya!" },
+                places: [
+                    { name: "Baga Beach", img: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=500", desc: "Famous party beach with water sports", modes: ["friends", "college", "couple"], timing: "Best: 6AM-9AM (avoid crowd)", view360: "https://www.google.com/maps/@15.5557,73.7516,3a,75y/data=!3m6!1e1" },
+                    { name: "Fort Aguada", img: "https://images.unsplash.com/photo-1582610116397-edb318620f90?w=500", desc: "17th-century Portuguese fort with sea views", modes: ["family", "couple", "solo"], timing: "Best: 4PM-6PM (sunset)", view360: "#" },
+                    { name: "Dudhsagar Falls", img: "https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=500", desc: "Four-tiered waterfall in Western Ghats", modes: ["friends", "family", "college"], timing: "Best: Monsoon months", view360: "#" },
+                    { name: "Old Goa Churches", img: "https://images.unsplash.com/photo-1609920658906-8223bd289001?w=500", desc: "UNESCO World Heritage Site", modes: ["family", "couple", "solo"], timing: "Best: 9AM-11AM", view360: "#" }
+                ],
+                markets: [{ name: "Anjuna Flea Market", img: "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=500", desc: "Wed-only bohemian market" }, { name: "Mapusa Market", img: "https://images.unsplash.com/photo-1488459716781-31db52582fe9?w=500", desc: "Friday local market" }, { name: "Arpora Saturday Night Market", img: "https://images.unsplash.com/photo-1555992336-fb0d29498b13?w=500", desc: "Live music & food" }],
+                food: [
+                    { name: "Britto's", img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=500", desc: "Seafood heaven", type: ["nonveg"] },
+                    { name: "Vihar Restaurant", img: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=500", desc: "Pure veg South Indian", type: ["veg", "jain"] },
+                    { name: "Thalassa", img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500", desc: "Greek cuisine cliff-top", type: ["veg", "nonveg"] },
+                    { name: "Bismillah Restaurant", img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500", desc: "Authentic Halal food", type: ["halal", "nonveg"] }
+                ],
+                hotels: [{ name: "Taj Exotica", img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500", desc: "5-star luxury resort", type: "hotel" }, { name: "Zostel Goa", img: "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=500", desc: "Backpacker hostel", type: "hostel" }, { name: "Beachside Airbnb Villa", img: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=500", desc: "Private beach villa", type: "airbnb" }],
+                guides: [{ name: "Rahul D'Souza", img: "https://i.pravatar.cc/150?img=12", desc: "10+ years experience, speaks 5 languages", price: "₹2500/day", rating: "4.9" }, { name: "Priya Fernandes", img: "https://i.pravatar.cc/150?img=45", desc: "Beach & heritage specialist", price: "₹2000/day", rating: "4.8" }],
+                culture: [{ icon: "🎵", title: "Goan Music", desc: "Mando & Dulpod folk music" }, { icon: "💃", title: "Carnival", desc: "Pre-Lent celebration in Feb/March" }, { icon: "🍛", title: "Cuisine", desc: "Fish curry rice, Bebinca, Feni" }, { icon: "⛪", title: "Festivals", desc: "Shigmo, Sao Joao, Christmas" }],
+                route: [{ from: "Airport (GOI)", to: "Baga Beach", dist: "45km", time: "1hr 10min" }, { from: "Baga Beach", to: "Fort Aguada", dist: "8km", time: "20min" }, { from: "Fort Aguada", to: "Old Goa", dist: "15km", time: "30min" }],
+                restaurants_onroute: ["Cafe Bodega", "Sea Horse Beach Shack", "Martin's Corner"],
+                petrolPumps: ["HP Mapusa", "Indian Oil Panjim", "Bharat Petroleum Calangute"],
+                hospitals: ["Goa Medical College", "Manipal Hospital", "Apollo Victor"],
+                unsafeAreas: ["Secluded beaches at night", "Some stretches of Baga at late night"]
+            },
+            Jaipur: {
+                local: "Rajasthani/Marwari", nativeName: "जयपुर",
+                about: { en: "Jaipur, the Pink City, is the capital of Rajasthan, known for royal palaces, forts, and vibrant bazaars.", hi: "जयपुर, गुलाबी शहर, राजस्थान की राजधानी है, महलों और किलों के लिए प्रसिद्ध।", local: "Padharo mhare desh - Welcome to our land!" },
+                places: [
+                    { name: "Amber Fort", img: "https://images.unsplash.com/photo-1599661046289-e31897846e41?w=500", desc: "Majestic hilltop fort", modes: ["family", "couple", "solo", "college"], timing: "Best: 8AM-10AM", view360: "#" },
+                    { name: "Hawa Mahal", img: "https://images.unsplash.com/photo-1477587458883-47145ed94245?w=500", desc: "Palace of Winds - 953 windows", modes: ["couple", "solo", "family"], timing: "Best: 9AM-11AM", view360: "#" },
+                    { name: "City Palace", img: "https://images.unsplash.com/photo-1609920658906-8223bd289001?w=500", desc: "Royal residence museum", modes: ["family", "couple", "solo"], timing: "Best: 10AM-12PM", view360: "#" },
+                    { name: "Jantar Mantar", img: "https://images.unsplash.com/photo-1587474260584-136574528ed5?w=500", desc: "Astronomical observatory (UNESCO)", modes: ["family", "college", "solo"], timing: "Best: Morning", view360: "#" }
+                ],
+                markets: [{ name: "Johari Bazaar", img: "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=500", desc: "Famous for jewelry" }, { name: "Bapu Bazaar", img: "https://images.unsplash.com/photo-1488459716781-31db52582fe9?w=500", desc: "Textiles & mojaris" }, { name: "Tripolia Bazaar", img: "https://images.unsplash.com/photo-1555992336-fb0d29498b13?w=500", desc: "Lac bangles" }],
+                food: [
+                    { name: "Chokhi Dhani", img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=500", desc: "Traditional Rajasthani thali", type: ["veg", "jain"] },
+                    { name: "LMB", img: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=500", desc: "Famous sweets & snacks", type: ["veg", "jain"] },
+                    { name: "Handi Restaurant", img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500", desc: "Mughlai non-veg", type: ["nonveg", "halal"] },
+                    { name: "Rawat Misthan Bhandar", img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500", desc: "Pyaaz Kachori legend", type: ["veg"] }
+                ],
+                hotels: [{ name: "Rambagh Palace", img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500", desc: "Heritage palace hotel", type: "hotel" }, { name: "Zostel Jaipur", img: "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=500", desc: "Backpacker hostel", type: "hostel" }, { name: "Heritage Haveli Airbnb", img: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=500", desc: "Traditional stay", type: "airbnb" }],
+                guides: [{ name: "Arjun Singh", img: "https://i.pravatar.cc/150?img=33", desc: "Heritage expert, 15 yrs exp", price: "₹3000/day", rating: "5.0" }, { name: "Meera Sharma", img: "https://i.pravatar.cc/150?img=47", desc: "Art & culture specialist", price: "₹2500/day", rating: "4.9" }],
+                culture: [{ icon: "🎨", title: "Block Printing", desc: "Traditional Sanganeri prints" }, { icon: "💃", title: "Ghoomar Dance", desc: "Traditional Rajasthani folk" }, { icon: "🎪", title: "Camel Festival", desc: "Annual in Pushkar" }, { icon: "👗", title: "Bandhani", desc: "Tie-dye textile art" }],
+                route: [{ from: "Airport (JAI)", to: "City Palace", dist: "13km", time: "25min" }, { from: "City Palace", to: "Hawa Mahal", dist: "1km", time: "5min" }, { from: "Hawa Mahal", to: "Amber Fort", dist: "11km", time: "25min" }],
+                restaurants_onroute: ["Tapri Central", "Sanjay Restaurant", "Peacock Rooftop"],
+                petrolPumps: ["IOC MI Road", "HP Civil Lines", "BPCL Sindhi Camp"],
+                hospitals: ["SMS Hospital", "Fortis Escorts", "Narayana Hospital"],
+                unsafeAreas: ["Crowded areas during Diwali evening", "Isolated park areas at night"]
+            },
+            Manali: {
+                local: "Himachali/Pahari", nativeName: "मनाली",
+                about: { en: "Manali is a Himalayan resort town famous for snow, adventure sports, and scenic valleys.", hi: "मनाली हिमालय का एक रिसॉर्ट शहर है, बर्फ और साहसिक खेलों के लिए प्रसिद्ध।", local: "Jai Himachal! Swagat hai aapka!" },
+                places: [{ name: "Solang Valley", img: "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=500", desc: "Adventure sports paradise", modes: ["friends", "couple", "college"], timing: "Best: 10AM-2PM", view360: "#" }, { name: "Rohtang Pass", img: "https://images.unsplash.com/photo-1583255448430-91f8e67ab7c3?w=500", desc: "Snow-capped mountain pass", modes: ["friends", "family", "couple"], timing: "Best: May-Oct", view360: "#" }, { name: "Hadimba Temple", img: "https://images.unsplash.com/photo-1609920658906-8223bd289001?w=500", desc: "Ancient wooden temple", modes: ["solo", "family", "couple"], timing: "Best: Early morning", view360: "#" }],
+                markets: [{ name: "Mall Road", img: "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=500", desc: "Main shopping street" }, { name: "Old Manali Market", img: "https://images.unsplash.com/photo-1488459716781-31db52582fe9?w=500", desc: "Hippie cafes & shops" }, { name: "Tibetan Market", img: "https://images.unsplash.com/photo-1555992336-fb0d29498b13?w=500", desc: "Woolens & crafts" }],
+                food: [{ name: "Johnson's Cafe", img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=500", desc: "Trout & continental", type: ["nonveg", "veg"] }, { name: "Chopsticks", img: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=500", desc: "Tibetan momos", type: ["veg", "nonveg"] }, { name: "Casa Bella Vista", img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500", desc: "Italian pizza", type: ["veg"] }],
+                hotels: [{ name: "The Himalayan", img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500", desc: "Castle-style luxury", type: "hotel" }, { name: "Zostel Manali", img: "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=500", desc: "Mountain hostel", type: "hostel" }, { name: "Cottage Airbnb", img: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=500", desc: "Riverside cottage", type: "airbnb" }],
+                guides: [{ name: "Vikram Thakur", img: "https://i.pravatar.cc/150?img=14", desc: "Trekking & adventure expert", price: "₹2000/day", rating: "4.8" }],
+                culture: [{ icon: "🎵", title: "Nati Dance", desc: "Traditional Himachali dance" }, { icon: "🧶", title: "Kullu Shawls", desc: "Handwoven wool products" }, { icon: "🏔️", title: "Dussehra", desc: "Unique Kullu celebration" }],
+                route: [{ from: "Bhuntar Airport", to: "Manali", dist: "50km", time: "1hr 30min" }, { from: "Manali", to: "Solang Valley", dist: "14km", time: "30min" }, { from: "Solang", to: "Rohtang", dist: "38km", time: "2hr" }],
+                restaurants_onroute: ["Cafe 1947", "Drifter's", "Pizza Olive"],
+                petrolPumps: ["HP Manali", "IOC Kullu", "BPCL Naggar"],
+                hospitals: ["Mission Hospital", "Lady Willingdon", "Manali Civil"],
+                unsafeAreas: ["Remote mountain roads at night", "Old Manali lanes alone at late night"]
+            }
+        };
+        // Default data for other cities
+        const defaultData = {
+            Mumbai: { local: "Marathi", nativeName: "मुंबई", about: { en: "India's financial capital & entertainment hub.", hi: "भारत की आर्थिक राजधानी।", local: "Aapla Mumbai!" } },
+            Delhi: { local: "Hindi", nativeName: "दिल्ली", about: { en: "Capital of India with rich Mughal heritage.", hi: "भारत की राजधानी, मुगल विरासत से समृद्ध।", local: "Dilwalo ki Dilli!" } },
+            Kerala: { local: "Malayalam", nativeName: "കേരളം", about: { en: "God's Own Country with backwaters & beaches.", hi: "भगवान का अपना देश।", local: "Swagatham!" } },
+            Udaipur: { local: "Mewari", nativeName: "उदयपुर", about: { en: "City of Lakes, romantic destination.", hi: "झीलों का शहर।", local: "Padharo!" } },
+            Shimla: { local: "Pahari", nativeName: "शिमला", about: { en: "Queen of Hills, British-era charm.", hi: "पहाड़ों की रानी।", local: "Jai Himachal!" } },
+            Agra: { local: "Braj Bhasha", nativeName: "आगरा", about: { en: "Home to the iconic Taj Mahal.", hi: "ताजमहल का घर।", local: "Swagat hai!" } },
+            Varanasi: { local: "Bhojpuri", nativeName: "वाराणसी", about: { en: "Spiritual capital, oldest living city.", hi: "आध्यात्मिक राजधानी।", local: "Har Har Mahadev!" } }
+        };
+
+        // Fill default cities with basic data
+        Object.keys(defaultData).forEach(city => {
+            if (!cityData[city]) {
+                cityData[city] = {
+                    ...defaultData[city],
+                    places: [{ name: "Main Attraction", img: "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=500", desc: "Famous landmark", modes: ["family", "couple", "solo"], timing: "Best: Morning", view360: "#" }, { name: "Historic Site", img: "https://images.unsplash.com/photo-1587474260584-136574528ed5?w=500", desc: "Cultural heritage", modes: ["solo", "family"], timing: "Best: 9AM-11AM", view360: "#" }],
+                    markets: [{ name: "Local Market", img: "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=500", desc: "Traditional shopping" }],
+                    food: [{ name: "Local Restaurant", img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=500", desc: "Regional cuisine", type: ["veg", "nonveg"] }],
+                    hotels: [{ name: "City Hotel", img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500", desc: "Comfortable stay", type: "hotel" }],
+                    guides: [{ name: "Local Guide", img: "https://i.pravatar.cc/150?img=20", desc: "Certified guide", price: "₹2000/day", rating: "4.7" }],
+                    culture: [{ icon: "🎭", title: "Local Arts", desc: "Traditional culture" }],
+                    route: [{ from: "Station", to: "City Center", dist: "10km", time: "20min" }],
+                    restaurants_onroute: ["Highway Cafe"], petrolPumps: ["Main Station"], hospitals: ["City Hospital"], unsafeAreas: ["Isolated areas at night"]
+                };
+            }
+        });
+
+        const travelMessages = {
+            solo: { title: "Your Solo Journey 🧳", sub: "Discover yourself at your own pace" },
+            couple: { title: "Romantic Escape 💕", sub: "Cherish magical moments together" },
+            family: { title: "Family Fun Time 👨‍👩‍👧", sub: "Memories for everyone" },
+            friends: { title: "Squad Adventure 🎉", sub: "Unforgettable fun with friends" },
+            college: { title: "College Trip Mode 🎓", sub: "Budget-friendly adventures" }
+        };
+
+        // =================== GLOBAL STATE ===================
+        let currentRating = 0;
+        let networkStatus = true;
+
+        // =================== NAVIGATION ===================
+        function hideAllPages() {
+            ['homePage', 'loginPage', 'dashboardPage', 'profilePage', 'historyPage', 'feedbackPage'].forEach(id => {
+                const el = document.getElementById(id); if (el) el.classList.add('hidden');
+            });
+        }
+        function showHome() { hideAllPages(); document.getElementById('homePage').classList.remove('hidden'); window.scrollTo(0, 0); }
+        function showLogin() { hideAllPages(); document.getElementById('loginPage').classList.remove('hidden'); window.scrollTo(0, 0); }
+        function showDashboard() { hideAllPages(); document.getElementById('dashboardPage').classList.remove('hidden'); loadDashboard(); window.scrollTo(0, 0); }
+        function showProfile() { hideAllPages(); document.getElementById('profilePage').classList.remove('hidden'); loadProfile(); window.scrollTo(0, 0); }
+        function showHistory() { hideAllPages(); document.getElementById('historyPage').classList.remove('hidden'); loadHistory(); window.scrollTo(0, 0); }
+        function showFeedback() { hideAllPages(); document.getElementById('feedbackPage').classList.remove('hidden'); window.scrollTo(0, 0); }
+
+        // =================== LANGUAGE ===================
+        function changeLanguage(lang) {
+            document.querySelectorAll('[data-lang]').forEach(el => {
+                const key = el.getAttribute('data-lang');
+                if (translations[lang] && translations[lang][key]) el.textContent = translations[lang][key];
+            });
+        }
+        function translateDashboard(lang) {
+            const user = JSON.parse(localStorage.getItem('userData'));
+            if (!user) return;
+            user.prefLang = lang;
+            localStorage.setItem('userData', JSON.stringify(user));
+            loadDashboard();
+            alert(lang === 'hi' ? 'भाषा बदल गई!' : lang === 'es' ? '¡Idioma cambiado!' : 'Language changed!');
+        }
+
+        // =================== LOGIN ===================
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const userData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                gender: document.getElementById('gender').value,
+                nationality: document.getElementById('nationality').value,
+                travelType: document.getElementById('travelType').value,
+                foodPref: document.getElementById('foodPref').value,
+                prefLang: document.getElementById('prefLang').value,
+                city: document.getElementById('city').value,
+                loginDate: new Date().toLocaleString()
+            };
+            localStorage.setItem('userData', JSON.stringify(userData));
+            // Add to history
+            let history = JSON.parse(localStorage.getItem('travelHistory')) || [];
+            history.unshift({ city: userData.city, mode: userData.travelType, date: userData.loginDate });
+            localStorage.setItem('travelHistory', JSON.stringify(history.slice(0, 20)));
+            showDashboard();
+        });
+
+        // =================== DASHBOARD ===================
+        function loadDashboard() {
+            const user = JSON.parse(localStorage.getItem('userData'));
+            if (!user) { showLogin(); return; }
+            const header = document.getElementById('dashHeader');
+            header.className = 'dashboard-header';
+            if (user.gender === 'male') header.classList.add('theme-male');
+            else if (user.gender === 'female') header.classList.add('theme-female');
+            else header.classList.add('theme-other');
+
+            const greet = user.gender === 'female' ? 'Ms.' : user.gender === 'male' ? 'Mr.' : '';
+            document.getElementById('welcomeMsg').textContent = `Welcome ${greet} ${user.name}! ${travelMessages[user.travelType].title}`;
+            document.getElementById('subMsg').textContent = `${travelMessages[user.travelType].sub} in ${user.city}`;
+
+            document.getElementById('dashLang').value = user.prefLang;
+            const data = cityData[user.city];
+            if (!data) { alert("City data unavailable"); return; }
+
+            // About the city header
+            const aboutText = data.about[user.prefLang] || data.about.en;
+            const aboutHTML = `<div style="background:rgba(255,255,255,0.15);padding:15px;border-radius:10px;margin-top:15px;max-width:800px;margin-left:auto;margin-right:auto;">
+<strong>📍 ${user.city} (${data.nativeName})</strong><br>
+<small>Local Language: ${data.local}</small><br>
+<p style="margin-top:8px">${aboutText}</p>
+<p style="margin-top:8px;font-style:italic">💬 ${data.about.local}</p>
+</div>`;
+            document.getElementById('subMsg').innerHTML = `${travelMessages[user.travelType].sub} in ${user.city}` + aboutHTML;
+
+            renderPlaces(data.places, user.travelType);
+            renderCards('marketsContainer', data.markets);
+            renderFood(data.food, user.foodPref);
+            renderCards('hotelsContainer', data.hotels);
+            renderEssentials(user, data);
+            renderRoute(data, user);
+            renderCulture(data.culture);
+            renderGuides(data.guides);
+        }
+
+        function renderPlaces(places, mode) {
+            const filtered = places.filter(p => p.modes && p.modes.includes(mode));
+            const final = filtered.length ? filtered : places;
+            document.getElementById('placesContainer').innerHTML = final.map(p => `
+<div class="card" onclick='showPlaceDetail(${JSON.stringify(p).replace(/'/g, "&#39;")})'>
+<img src="${p.img}" alt="${p.name}">
+<div class="card-body">
+<h3>${p.name}</h3>
+<p>${p.desc}</p>
+<div class="card-tags">
+<span class="tag tag-hot">⏰ ${p.timing}</span>
+<span class="tag">🎥 360° View</span>
+</div>
+</div>
+</div>
+`).join('');
+        }
+
+        function renderCards(id, items) {
+            document.getElementById(id).innerHTML = items.map(it => `
+<div class="card">
+<img src="${it.img}" alt="${it.name}">
+<div class="card-body"><h3>${it.name}</h3><p>${it.desc}</p></div>
+</div>`).join('');
+        }
+
+        function renderFood(foods, pref) {
+            const filtered = pref === 'all' ? foods : foods.filter(f => f.type && f.type.includes(pref));
+            const final = filtered.length ? filtered : foods;
+            document.getElementById('foodContainer').innerHTML = final.map(f => `
+<div class="card">
+<img src="${f.img}" alt="${f.name}">
+<div class="card-body">
+<h3>${f.name}</h3>
+<p>${f.desc}</p>
+<div class="card-tags">${f.type ? f.type.map(t => `<span class="tag tag-safe">${t.toUpperCase()}</span>`).join('') : ''}</div>
+</div>
+</div>`).join('');
+        }
+
+        function renderEssentials(user, data) {
+            let html = '';
+            const note = user.gender === 'female' ? '🛡️ Showing women-safety focused essentials' : user.gender === 'male' ? '💪 Showing essentials for you' : 'Essentials for you';
+            document.getElementById('essentialsNote').textContent = note;
+
+            // Common for all
+            html += `<div class="info-box"><h4>🏥 Hospitals</h4><p>${data.hospitals.join(', ')}</p></div>`;
+            html += `<div class="info-box"><h4>💊 Medicals</h4><p>24/7 Apollo Pharmacy, MedPlus, local chemists</p></div>`;
+            html += `<div class="info-box"><h4>🚻 Washrooms</h4><p>At major tourist spots, malls, petrol pumps</p></div>`;
+
+            if (user.nationality === 'international') {
+                html += `<div class="info-box"><h4>🏧 International ATMs</h4><p>HDFC, ICICI, Citibank (all accept Visa/Master/Amex)</p></div>`;
+            } else {
+                html += `<div class="info-box"><h4>🏧 ATMs</h4><p>SBI, HDFC, ICICI widely available</p></div>`;
+            }
+
+            html += `<div class="info-box"><h4>🍢 Street Food Spots</h4><p>Local chaat corners, famous vendors nearby</p></div>`;
+
+            // Gender-specific
+            if (user.gender === 'female') {
+                html += `<div class="info-box safe"><h4>💊 Women's Pharmacy</h4><p>MedPlus, Apollo - with female staff available</p></div>`;
+                html += `<div class="info-box warning"><h4>⚠️ Areas to Avoid</h4><p>${data.unsafeAreas.join('; ')}</p></div>`;
+                html += `<div class="info-box safe"><h4>🆘 Women Helpline</h4><p>1091 (24/7), Police: 100</p></div>`;
+            } else if (user.gender === 'male') {
+                html += `<div class="info-box"><h4>🍻 Bars & Pubs</h4><p>Popular nightlife spots in the city</p></div>`;
+                html += `<div class="info-box"><h4>⛽ Petrol Pumps</h4><p>${data.petrolPumps.join(', ')}</p></div>`;
+                html += `<div class="info-box"><h4>💪 Gyms</h4><p>Cult.fit, Gold's Gym, local fitness centers</p></div>`;
+            } else {
+                html += `<div class="info-box"><h4>⛽ Petrol Pumps</h4><p>${data.petrolPumps.join(', ')}</p></div>`;
+                html += `<div class="info-box"><h4>🏳️‍🌈 LGBTQ+ Friendly</h4><p>Inclusive cafes & venues available</p></div>`;
+            }
+
+            document.getElementById('essentialsContainer').innerHTML = html;
+        }
+
+        function renderRoute(data, user) {
+            let html = '<h3 style="margin-bottom:10px">🛣️ Suggested Route</h3>';
+            data.route.forEach((r, i) => {
+                html += `<div class="route-box">
+<div><strong>${i + 1}. ${r.from} → ${r.to}</strong></div>
+<div><span class="tag">📏 ${r.dist}</span> <span class="tag">⏱️ ${r.time}</span></div>
+</div>`;
+            });
+
+            html += `<div style="margin-top:20px"><h3>🍽️ Restaurants on Route (${user.foodPref.toUpperCase()})</h3>`;
+            html += `<div class="info-grid" style="margin-top:10px">`;
+            data.restaurants_onroute.forEach(r => {
+                html += `<div class="info-box"><h4>🍴 ${r}</h4><p>Suitable for ${user.foodPref}</p></div>`;
+            });
+            html += `</div></div>`;
+
+            html += `<div style="margin-top:20px"><h3>⛽ Petrol Pumps on Route</h3>`;
+            html += `<div class="info-grid" style="margin-top:10px">`;
+            data.petrolPumps.forEach(p => {
+                html += `<div class="info-box"><h4>⛽ ${p}</h4><p>Open 24/7</p></div>`;
+            });
+            html += `</div></div>`;
+
+            html += `<div style="margin-top:20px"><h3>⏰ Crowd Avoidance Tips</h3>
+<div class="info-box safe">
+<h4>🎯 Smart Timings</h4>
+<p>• Visit popular spots between 6AM-9AM (low crowd)<br>
+• Avoid weekends at famous attractions<br>
+• Lunch at restaurants at 11:30AM or after 2:30PM<br>
+• Markets are less crowded on weekday mornings</p>
+</div></div>`;
+
+            document.getElementById('routeContainer').innerHTML = html;
+
+            // Generate QR code
+            const routeUrl = `https://maps.google.com/?q=${user.city}+tourist+route`;
+            document.getElementById('qrImage').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(routeUrl)}`;
+        }
+
+        function renderCulture(culture) {
+            document.getElementById('cultureContainer').innerHTML = culture.map(c => `
+<div class="info-box">
+<h4>${c.icon} ${c.title}</h4>
+<p>${c.desc}</p>
+</div>`).join('') + `
+<div class="info-box safe">
+<h4>🛣️ Highway Cultural Stops</h4>
+<p>Explore roadside dhabas, folk performances at rest stops, local handicraft villages along your route.</p>
+</div>`;
+        }
+
+        function renderGuides(guides) {
+            document.getElementById('guideContainer').innerHTML = guides.map(g => `
+<div class="card">
+<img src="${g.img}" alt="${g.name}" style="height:220px">
+<div class="card-body">
+<h3>${g.name}</h3>
+<p>${g.desc}</p>
+<div class="card-tags">
+<span class="tag tag-hot">⭐ ${g.rating}</span>
+<span class="tag tag-safe">${g.price}</span>
+</div>
+<button class="btn-primary" style="margin-top:10px;width:100%" onclick="hireGuide('${g.name}','${g.price}')">Hire Now</button>
+</div>
+</div>`).join('');
+        }
+
+        function hireGuide(name, price) {
+            const method = prompt(`Book ${name} for ${price}\n\nChoose Payment:\n1. Stripe\n2. Razorpay\n3. PayPal\n\nEnter 1, 2 or 3:`);
+            if (method) {
+                const methods = { '1': 'Stripe', '2': 'Razorpay', '3': 'PayPal' };
+                alert(`✅ Booking confirmed with ${methods[method] || 'Razorpay'}!\n\nGuide: ${name}\nAmount: ${price}\n\n(Demo: In production, payment gateway will open)`);
+                // Add to history
+                let history = JSON.parse(localStorage.getItem('travelHistory')) || [];
+                history.unshift({ city: 'Guide Hired', mode: name, date: new Date().toLocaleString() });
+                localStorage.setItem('travelHistory', JSON.stringify(history));
+            }
+        }
+
+        // =================== TABS ===================
+        function switchTab(tab, btn) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+            ['places', 'markets', 'food', 'hotels', 'essentials', 'route', 'culture', 'guide'].forEach(t => {
+                document.getElementById(t + 'Tab').classList.add('hidden');
+            });
+            document.getElementById(tab + 'Tab').classList.remove('hidden');
+        }
+
+        // =================== PLACE DETAIL MODAL ===================
+        function showPlaceDetail(place) {
+            const user = JSON.parse(localStorage.getItem('userData'));
+            const data = cityData[user.city];
+            document.getElementById('modalContent').innerHTML = `
+<button class="modal-close" onclick="closeModal()">×</button>
+<h2>${place.name}</h2>
+<img src="${place.img}" alt="${place.name}">
+<p style="margin:10px 0"><strong>Description:</strong> ${place.desc}</p>
+<div class="info-grid" style="margin:15px 0">
+<div class="info-box"><h4>⏰ Best Time</h4><p>${place.timing}</p></div>
+<div class="info-box"><h4>👥 Best For</h4><p>${place.modes.join(', ')}</p></div>
+<div class="info-box safe"><h4>🎥 360° View</h4><p><a href="${place.view360}" target="_blank" style="color:#764ba2">Click to view virtual tour</a></p></div>
+<div class="info-box"><h4>🗣️ In ${data.local}</h4><p>"${place.name}" - ask locals for directions</p></div>
+</div>
+<h3 style="margin-top:15px">🚗 Suggested Vehicles (Approx Cost)</h3>
+<div class="info-grid" style="margin-top:10px">
+<div class="info-box"><h4>🛺 Auto</h4><p>₹50-150</p></div>
+<div class="info-box"><h4>🚕 Cab (Uber/Ola)</h4><p>₹200-500</p></div>
+<div class="info-box"><h4>🏍️ Bike Rental</h4><p>₹300-600/day</p></div>
+<div class="info-box"><h4>🚌 Bus</h4><p>₹20-50</p></div>
+</div>
+<button class="btn-primary" onclick="alert('Virtual 360° tour loading...\\n(In production: integrates with Google Street View)')" style="margin-top:15px">🎥 View 360°</button>
+`;
+            document.getElementById('modalOverlay').classList.remove('hidden');
+        }
+        function closeModal() { document.getElementById('modalOverlay').classList.add('hidden'); }
+
+        // =================== CHATBOT ===================
+        function toggleChatbot() { document.getElementById('chatbotBox').classList.toggle('hidden'); }
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const msg = input.value.trim();
+            if (!msg) return;
+            const messages = document.getElementById('chatMessages');
+            messages.innerHTML += `<div class="msg msg-user">${msg}</div>`;
+            input.value = '';
+            setTimeout(() => {
+                const user = JSON.parse(localStorage.getItem('userData'));
+                const data = user ? cityData[user.city] : null;
+                let reply = "I'm here to help! Ask about places, food, hotels, or routes.";
+                const m = msg.toLowerCase();
+                if (m.includes('hi') || m.includes('hello')) reply = `Hi ${user ? user.name : 'there'}! 👋 How can I help you explore ${user ? user.city : 'India'}?`;
+                else if (m.includes('place') || m.includes('visit')) reply = `Top places in ${user.city}: ${data.places.map(p => p.name).join(', ')}. Best time: early morning to avoid crowds!`;
+                else if (m.includes('food') || m.includes('eat')) reply = `Try these in ${user.city}: ${data.food.map(f => f.name).join(', ')}. Filtered by ${user.foodPref} preference!`;
+                else if (m.includes('hotel') || m.includes('stay')) reply = `Great stays: ${data.hotels.map(h => h.name).join(', ')}`;
+                else if (m.includes('guide')) reply = `You can hire local guides like ${data.guides.map(g => g.name).join(', ')} - check Guide tab!`;
+                else if (m.includes('safe') || m.includes('safety')) reply = user.gender === 'female' ? `Safety tips: Avoid ${data.unsafeAreas[0]}. Women helpline: 1091` : `Stay safe! Police: 100, Ambulance: 102`;
+                else if (m.includes('language') || m.includes('translate')) reply = `Local language in ${user.city} is ${data.local}. Say "${data.about.local}"!`;
+                else if (m.includes('route')) reply = `Check the Route tab for detailed route with restaurants and petrol pumps!`;
+                else if (m.includes('culture')) reply = `Explore local culture: ${data.culture.map(c => c.title).join(', ')}`;
+                messages.innerHTML += `<div class="msg msg-bot">${reply}</div>`;
+                messages.scrollTop = messages.scrollHeight;
+            }, 600);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        // =================== PROFILE ===================
+        function loadProfile() {
+            const user = JSON.parse(localStorage.getItem('userData'));
+            if (!user) { showLogin(); return; }
+            document.getElementById('profileAvatar').textContent = user.name.charAt(0).toUpperCase();
+            document.getElementById('profileName').textContent = user.name;
+            document.getElementById('profileEmail').textContent = user.email;
+            document.getElementById('profileGender').textContent = user.gender;
+            document.getElementById('profileNation').textContent = user.nationality;
+            document.getElementById('profileMode').textContent = user.travelType;
+            document.getElementById('profileFood').textContent = user.foodPref;
+            document.getElementById('profileCity').textContent = user.city;
+            document.getElementById('profileLang').textContent = user.prefLang;
+        }
+
+        // =================== HISTORY ===================
+        function loadHistory() {
+            const history = JSON.parse(localStorage.getItem('travelHistory')) || [];
+            if (history.length === 0) {
+                document.getElementById('historyList').innerHTML = '<p style="text-align:center;color:#888">No travel history yet. Start exploring!</p>';
+                return;
+            }
+            document.getElementById('historyList').innerHTML = history.map(h => `
+<div class="history-item">
+<div><strong>📍 ${h.city}</strong><br><small>Mode: ${h.mode}</small></div>
+<div><small>${h.date}</small></div>
+</div>
+`).join('');
+        }
+
+        // =================== FEEDBACK ===================
+        function setRating(n) {
+            currentRating = n;
+            document.querySelectorAll('.star').forEach((s, i) => {
+                s.classList.toggle('active', i < n);
+            });
+        }
+        function submitFeedback() {
+            const text = document.getElementById('feedbackText').value;
+            if (!currentRating) { alert('Please rate your experience!'); return; }
+            if (!text.trim()) { alert('Please write some feedback!'); return; }
+            let feedbacks = JSON.parse(localStorage.getItem('feedbacks')) || [];
+            feedbacks.push({ rating: currentRating, text, date: new Date().toLocaleString() });
+            localStorage.setItem('feedbacks', JSON.stringify(feedbacks));
+            alert('✅ Thank you for your feedback! Rating: ' + currentRating + '⭐');
+            document.getElementById('feedbackText').value = '';
+            setRating(0);
+            currentRating = 0;
+            showDashboard();
+        }
+
+        // =================== LOGOUT ===================
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('userData');
+                showHome();
+            }
+        }
+
+        // =================== NETWORK STATUS ===================
+        window.addEventListener('online', () => {
+            document.getElementById('offlineBanner').style.display = 'none';
+            networkStatus = true;
+        });
+        window.addEventListener('offline', () => {
+            document.getElementById('offlineBanner').style.display = 'block';
+            networkStatus = false;
+        });
+
+        // =================== AUTO LOGIN ===================
+        if (localStorage.getItem('userData')) showDashboard();
+    </script>
+</body>
+
+</html>
